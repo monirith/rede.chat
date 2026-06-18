@@ -1,0 +1,33 @@
+{
+  "name": "rede-app",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "prebuild": "node scripts/build-og.mjs",
+    "build": "vite build",
+    "postbuild": "node scripts/prerender.mjs",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.json"
+  },
+  "devDependencies": {
+    "@fontsource/inter": "^5.2.8",
+    "@sveltejs/vite-plugin-svelte": "^4.0.0",
+    "@tsconfig/svelte": "^5.0.0",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "sharp": "^0.34.5",
+    "svelte": "^5.0.0",
+    "svelte-check": "^4.0.0",
+    "tailwindcss": "^3.4.15",
+    "tslib": "^2.8.0",
+    "typescript": "^5.6.0",
+    "vite": "^5.4.0"
+  },
+  "dependencies": {
+    "better-auth": "^1.6.11",
+    "soundtouchjs": "^0.3.0",
+    "svelte-spa-router": "^4.0.1"
+  }
+}

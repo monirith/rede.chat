@@ -1,0 +1,21 @@
+# Known SPA routes get a 200 so the shell loads and the client router takes over.
+/app              /index.html  200
+/credits          /index.html  200
+/profile          /index.html  200
+/history          /index.html  200
+/phrasebook       /index.html  200
+/feedback         /index.html  200
+/feedback/*       /index.html  200
+/session          /index.html  200
+/session/*        /index.html  200
+/signin           /index.html  200
+/privacy          /index.html  200
+/terms            /index.html  200
+
+# Dialect landing pages live at dist/<key>/index.html (prerender script output).
+# Cloudflare Pages serves them natively; no _redirects rule needed. Adding one
+# here would override the static file and break the URL → /. Same for locale
+# pages at dist/lang/<code>/index.html.
+
+# Everything else falls through to a real 404 so Google does not soft-404 garbage URLs.
+/*                /index.html  404

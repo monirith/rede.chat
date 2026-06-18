@@ -1,0 +1,45 @@
+/* Self-hosted Inter — replaces the previous Google Fonts <link> in index.html.
+   Vite bundles only the weights/subsets we import, so this is also smaller
+   than fetching the full Google CSS bundle. */
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+@import "@fontsource/inter/800.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior-y: none;
+  }
+  body {
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    font-feature-settings: "cv11", "ss01";
+  }
+}
+
+@layer utilities {
+  .text-outline-white {
+    -webkit-text-stroke: 2px white;
+    paint-order: stroke fill;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-medium transition;
+  }
+  .btn-primary {
+    @apply btn bg-ink text-cream hover:bg-ink/90 hover:-translate-y-0.5 hover:shadow-md active:scale-[0.98] active:translate-y-0 transition-all duration-150;
+  }
+  .btn-ghost {
+    @apply btn border border-ink/15 hover:border-ink/30 hover:-translate-y-0.5 hover:shadow-sm active:translate-y-0 transition-all duration-150;
+  }
+  .card {
+    @apply bg-white rounded-xl border border-ink/10 p-4;
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "name": "rede.chat · Learn Swiss languages and dialects with AI",
+  "short_name": "rede.chat",
+  "description": "Practice the languages and dialects of Switzerland with an AI conversation partner: Swiss German, Schweizer Hochdeutsch, Français suisse, Italiano svizzero, Rumantsch. Interface in 50+ languages. Pay-as-you-go.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#faf6ec",
+  "theme_color": "#0a0a0a",
+  "lang": "en",
+  "categories": ["education", "productivity"],
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo-120.png",
+      "sizes": "120x120",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo-1024.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

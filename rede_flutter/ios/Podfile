@@ -1,0 +1,91 @@
+# Lock the iOS platform so CocoaPods stops auto-assigning. Bumping to 16
+# matches what your test devices run and removes a class of deprecation
+# warnings the older targets emit.
+platform :ios, '16.0'
+
+# Suppress noisy deprecation/conversion warnings from third-party Pods we
+# don't control (in_app_purchase_storekit still using StoreKit 1,
+# permission_handler_apple using iOS 12-deprecated APIs, etc.). Standard
+# Flutter project practice — we can't fix upstream plugin code.
+inhibit_all_warnings!
+
+# CocoaPods analytics sends network stats synchronously affecting flutter build latency.
+ENV['COCOAPODS_DISABLE_STATS'] = 'true'
+
+project 'Runner', {
+  'Debug' => :debug,
+  'Profile' => :release,
+  'Release' => :release,
+}
+
+def flutter_root
+  generated_xcode_build_settings_path = File.expand_path(File.join('..', 'Flutter', 'Generated.xcconfig'), __FILE__)
+  unless File.exist?(generated_xcode_build_settings_path)
+    raise "#{generated_xcode_build_settings_path} must exist. If you're running pod install manually, make sure flutter pub get is executed first"
+  end
+
+  File.foreach(generated_xcode_build_settings_path) do |line|
+    matches = line.match(/FLUTTER_ROOT\=(.*)/)
+    return matches[1].strip if matches
+  end
+  raise "FLUTTER_ROOT not found in #{generated_xcode_build_settings_path}. Try deleting Generated.xcconfig, then run flutter pub get"
+end
+
+require File.expand_path(File.join('packages', 'flutter_tools', 'bin', 'podhelper'), flutter_root)
+
+flutter_ios_podfile_setup
+
+target 'Runner' do
+  use_frameworks!
+
+  flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+  target 'RunnerTests' do
+    inherit! :search_paths
+  end
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    flutter_additional_ios_build_settings(target)
+    target.build_configurations.each do |config|
+      # permission_handler ships with every permission compiled out by
+      # default; enable the ones we actually use so iOS shows the real
+      # prompt instead of silently auto-denying.
+      config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)']
+      config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] << 'PERMISSION_MICROPHONE=1'
+
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '16.0'
+      config.build_settings['ENABLE_BITCODE'] = 'NO'
+
+      # Silence each Pod target's deprecation noise even when individual
+      # source files have explicit pragmas; matches the inhibit_all_warnings!
+      # spirit at the build-setting layer.
+      config.build_settings['GCC_WARN_INHIBIT_ALL_WARNINGS'] = 'YES'
+      config.build_settings['SWIFT_SUPPRESS_WARNINGS']        = 'YES'
+
+      %w[LIBRARY_SEARCH_PATHS FRAMEWORK_SEARCH_PATHS SWIFT_INCLUDE_PATHS].each do |key|
+        v = config.build_settings[key]
+        next unless v.is_a?(Array)
+        config.build_settings[key] = v.reject { |p| p.to_s.include?('Metal.xctoolchain') }
+      end
+    end
+  end
+
+  # CocoaPods writes the Metal toolchain path into generated xcconfig files
+  # AFTER our hook above runs against build_settings. Walk the generated
+  # xcconfig files and strip references to the missing path so Xcode stops
+  # complaining. The path itself is harmless when present, just noisy when
+  # the temp mount has gone.
+  target_support = File.join(File.dirname(__FILE__), 'Pods', 'Target Support Files')
+  if File.directory?(target_support)
+    Dir.glob(File.join(target_support, '**', '*.xcconfig')).each do |f|
+      content = File.read(f)
+      next unless content.include?('Metal.xctoolchain')
+      cleaned = content.lines.map do |line|
+        line.gsub(/"[^"]*Metal\.xctoolchain[^"]*"\s*/, '')
+            .gsub(/\S*Metal\.xctoolchain\S*\s*/, '')
+      end.join
+      File.write(f, cleaned)
+    end
+  end
+end

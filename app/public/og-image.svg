@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#faf6ec"/>
+      <stop offset="1" stop-color="#f0e9d6"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#d4001a"/>
+      <stop offset="1" stop-color="#a30015"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Swiss cross corner accent -->
+  <g transform="translate(1010, 60)" opacity="0.85">
+    <rect width="130" height="130" rx="18" fill="url(#accent)"/>
+    <rect x="55" y="22" width="20" height="86" fill="#faf6ec"/>
+    <rect x="22" y="55" width="86" height="20" fill="#faf6ec"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="80" y="220" font-family="Inter, -apple-system, system-ui, sans-serif"
+        font-size="160" font-weight="800" fill="#0a0a0a" letter-spacing="-6">rede.chat</text>
+
+  <!-- Tagline -->
+  <text x="80" y="305" font-family="Inter, -apple-system, system-ui, sans-serif"
+        font-size="44" font-weight="600" fill="#0a0a0a">Learn Swiss German with AI.</text>
+
+  <!-- Sub-tagline -->
+  <text x="80" y="365" font-family="Inter, -apple-system, system-ui, sans-serif"
+        font-size="32" font-weight="400" fill="#0a0a0a" opacity="0.65">9 Swiss languages and dialects. UI in 50+ languages.</text>
+
+  <!-- Dialect chips: 4 named regional clusters + a count chip for the rest. -->
+  <g font-family="Inter, -apple-system, system-ui, sans-serif" font-size="22" font-weight="500" fill="#0a0a0a">
+    <g transform="translate(80, 450)">
+      <rect width="180" height="56" rx="28" fill="#ffffff" stroke="#0a0a0a" stroke-width="1.5" opacity="0.9"/>
+      <text x="90" y="36" text-anchor="middle">Züridütsch</text>
+    </g>
+    <g transform="translate(275, 450)">
+      <rect width="180" height="56" rx="28" fill="#ffffff" stroke="#0a0a0a" stroke-width="1.5" opacity="0.9"/>
+      <text x="90" y="36" text-anchor="middle">Bärndütsch</text>
+    </g>
+    <g transform="translate(470, 450)">
+      <rect width="180" height="56" rx="28" fill="#ffffff" stroke="#0a0a0a" stroke-width="1.5" opacity="0.9"/>
+      <text x="90" y="36" text-anchor="middle">Baseldytsch</text>
+    </g>
+    <g transform="translate(665, 450)">
+      <rect width="180" height="56" rx="28" fill="#ffffff" stroke="#0a0a0a" stroke-width="1.5" opacity="0.9"/>
+      <text x="90" y="36" text-anchor="middle">Ostschwiizer</text>
+    </g>
+    <g transform="translate(860, 450)">
+      <rect width="180" height="56" rx="28" fill="#ffffff" stroke="#0a0a0a" stroke-width="1.5" opacity="0.9"/>
+      <text x="90" y="36" text-anchor="middle">+ 5 more</text>
+    </g>
+  </g>
+
+  <!-- Footer URL -->
+  <text x="80" y="580" font-family="Inter, -apple-system, system-ui, sans-serif"
+        font-size="26" font-weight="500" fill="#0a0a0a" opacity="0.5">rede.chat</text>
+</svg>

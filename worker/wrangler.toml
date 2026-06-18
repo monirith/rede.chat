@@ -1,0 +1,36 @@
+name = "rede-worker"
+main = "src/index.ts"
+compatibility_date = "2026-05-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Disable the workers.dev subdomain. The worker is reachable only via the
+# custom-domain routes below; keeps the account-name `*.workers.dev` URL out
+# of the public surface area and eliminates a parallel ingress.
+workers_dev = false
+
+# Same-domain routing. Pages serves the SPA at rede.chat/*; these worker
+# routes intercept /api/* and /ws/* with higher precedence. No CORS overhead
+# for the SPA (same origin); webhook URL becomes rede.chat/api/stripe/webhook.
+[[routes]]
+pattern = "rede.chat/api/*"
+zone_name = "rede.chat"
+
+[[routes]]
+pattern = "rede.chat/ws/*"
+zone_name = "rede.chat"
+
+[vars]
+GEMINI_MODEL = "models/gemini-3.1-flash-live-preview"
+APP_ORIGIN = "https://rede.chat"
+WELCOME_SECONDS = "600"
+ANON_WELCOME_SECONDS = "60"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "rede"
+database_id = "83a4494f-fa69-41dd-ab4b-ffb6bceabd21"
+
+# Secrets (set with `wrangler secret put NAME`):
+#   GEMINI_API_KEY
+#   STRIPE_SECRET_KEY
+#   STRIPE_WEBHOOK_SECRET

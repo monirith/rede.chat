@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find /Users/monirith/Repositories/maredan -type f | head -30 && echo \"---\" && grep -r \"GEMINI\\\\|gemini\\\\|API_KEY\\\\|api_key\" /Users/monirith/Repositories/maredan --include=\"*.env*\" --include=\"*.json\" --include=\"*.yaml\" --include=\"*.toml\" -l 2>/dev/null | head -10)"
+    ]
+  }
+}
